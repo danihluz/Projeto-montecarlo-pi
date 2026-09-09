@@ -1,0 +1,9 @@
+# Executáveis gerados pela compilação
+baseline/02_montecarlo_pi
+
+# Arquivos temporários
+*.o
+*.out
+
+# Configurações locais
+.vscode/
