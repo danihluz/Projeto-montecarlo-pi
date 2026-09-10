@@ -6,6 +6,4 @@ baseline/02_montecarlo_pi
 *.out
 
 # Configurações locais
-.vscode/*.exe
-baseline/02_montecarlo_pi
-baseline/02_montecarlo_pi_perfilamento
+.vscode/
