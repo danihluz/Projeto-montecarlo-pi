@@ -1,9 +1,11 @@
 # Executáveis gerados pela compilação
 baseline/02_montecarlo_pi
+baseline/02_montecarlo_pi_perfilamento
+*.exe
 
-# Arquivos temporários
+# Arquivos objeto e saídas de compilação
 *.o
 *.out
 
-# Configurações locais
+# Configurações locais do VS Code
 .vscode/
