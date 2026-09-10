@@ -1,10 +1,30 @@
-# Geração Aleatória e Validação
+# Geração aleatória e validação no OpenMP
 
-## Independência do Estado Gerador
-O baseline utiliza a função `xorshift` dependente de uma variável de estado `s` compartilhada. No OpenMP, compartilhar esse estado geraria condições de corrida. Para garantir a independência, cada thread precisará de um estado e de uma semente própria.
+## Estado do gerador
 
-## Reprodutibilidade e Validação
-O enunciado exige validação contra o baseline, porém sementes diferentes por thread produzirão uma sequência diferente da versão puramente sequencial, o que pode alterar o valor exato da variável `dentro`. Para garantir a reprodutibilidade, a estratégia adotará um modelo determinístico para a geração das sementes locais (ex: baseadas no ID da thread). Isso assegura que execuções repetidas com o mesmo número de threads gerem resultados consistentes, mesmo que ligeiramente divergentes do *baseline* de 1 thread.
+O baseline usa um único estado `s` no gerador `xorshift`. Esse estado não será compartilhado entre threads. Cada thread manterá uma cópia privada e processará um intervalo contíguo das iterações originais.
 
-## Plano de Testes Futuro
-Para a avaliação de tempo, *speedup* e eficiência, serão realizados testes com 1, 2, 4 e 8 threads. O tempo será aferido após descartar o primeiro aquecimento de cache e extraindo a mediana de três medições válidas. Serão medidos os impactos de criação das threads e o comportamento ao atingir o limite de núcleos físicos da máquina.
+Usar simplesmente `semente_base + tid` produziria execuções repetíveis, mas alteraria a sequência e poderia mudar `dentro`. Como o enunciado exige exatamente o mesmo resultado do baseline, essa alternativa não será aceita como solução final.
+
+## Preservação da sequência original
+
+O estado inicial de cada thread deverá ser aquele que o baseline teria no início do seu intervalo. Como cada ponto consome duas chamadas de `xorshift`, uma thread cujo bloco começa em `inicio` deverá iniciar no estado correspondente a `2 * inicio` transições do gerador.
+
+Esse posicionamento será obtido por uma técnica determinística de *skip-ahead* ou *jump-ahead*. Assim, as threads processarão trechos diferentes da mesma sequência original, sem repetição ou omissão de pontos e sem compartilhar estado mutável.
+
+## Critério de corretude
+
+Para cada entrada, a versão OpenMP deverá produzir exatamente os mesmos valores de `dentro` e `pi` do baseline, tanto com 1 thread quanto com 2, 4 e 8 threads. Uma estimativa apenas próxima de π não satisfará esse critério.
+
+Também será verificado se a soma dos tamanhos dos blocos é igual a `n`, se os intervalos são disjuntos e se execuções repetidas produzem o mesmo resultado.
+
+## Protocolo futuro de desempenho
+
+Para cada tamanho de entrada e quantidade de threads, será descartada uma execução de aquecimento e serão realizadas três execuções válidas. A mediana dos tempos será utilizada para calcular:
+
+```text
+S(p) = T(1) / T(p)
+E(p) = S(p) / p
+```
+
+Serão discutidos o overhead de criação e sincronização das threads, o custo da redução, o posicionamento do gerador e a saturação ao ultrapassar o número de núcleos físicos disponíveis.

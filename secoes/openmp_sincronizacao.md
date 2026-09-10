@@ -1,10 +1,17 @@
-# Sincronização e Condição de Corrida
+# Sincronização e condição de corrida no OpenMP
 
-## O Problema na Variável Compartilhada
-O laço possui uma variável crítica compartilhada: `dentro`, que contabiliza os pontos na área do círculo. Se múltiplas threads tentarem incrementar essa variável simultaneamente, ocorrerá uma condição de corrida (*race condition*), resultando em atualizações simultâneas perdidas e um valor final incorreto.
+## Condição de corrida
 
-## Avaliação de Alternativas
-Três abordagens de sincronização foram analisadas:
-* **`critical`**: Garantiria a exclusão mútua, mas forçaria a serialização do incremento em cada iteração, degradando o desempenho.
-* **`atomic`**: Utiliza instruções atômicas de hardware, mas ainda causaria contenção no barramento de memória devido à alta frequência de atualizações.
-* **`reduction(+:dentro)`**: É a escolha justificada e mais apropriada. O OpenMP criará cópias privadas da variável `dentro` para cada thread, permitindo incrementos locais independentes. Ao final do laço, os valores privados serão combinados na variável global com eficiência máxima.
+Se várias threads executarem `dentro++` sobre a mesma variável sem proteção, duas ou mais poderão ler o mesmo valor e sobrescrever atualizações umas das outras. Isso caracteriza uma condição de corrida e produz uma contagem incorreta.
+
+O estado `s` do gerador `xorshift` também não pode ser compartilhado: cada chamada altera esse estado, de modo que acessos simultâneos corromperiam a sequência e tornariam o resultado não determinístico.
+
+## Alternativas de sincronização
+
+- `critical`: garante exclusão mútua, mas serializa os incrementos e tende a introduzir grande overhead.
+- `atomic`: é mais leve que `critical`, porém ainda cria contenção sobre uma variável atualizada milhões de vezes.
+- `reduction(+:dentro)`: fornece uma cópia privada do contador para cada thread e combina os valores ao final, evitando contenção a cada iteração.
+
+Por isso será utilizada uma redução por soma. `n` e a semente-base serão compartilhados apenas para leitura; o identificador da thread, os limites do bloco, o estado do gerador, `x` e `y` serão privados; `dentro` participará da redução.
+
+Essa escolha preserva a corretude da contagem e reduz o custo de sincronização em comparação com `critical` e `atomic`.
