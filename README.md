@@ -39,6 +39,12 @@ O projeto utiliza o ambiente Linux disponibilizado pela disciplina por meio de D
 Na pasta principal do projeto, execute:
 
 ```bash
+make
+```
+
+Também é possível compilar diretamente:
+
+```bash
 g++ -O2 -o baseline/02_montecarlo_pi baseline/02_montecarlo_pi.cpp
 ```
 
@@ -49,6 +55,12 @@ g++ -O2 -o baseline/02_montecarlo_pi baseline/02_montecarlo_pi.cpp
 ```
 
 O valor informado ao programa representa a quantidade de pontos utilizada na estimativa de Pi.
+
+Para remover os executáveis gerados:
+
+```bash
+make clean
+```
 
 ## Metodologia de medição
 

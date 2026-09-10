@@ -66,7 +66,7 @@ A validação deverá verificar:
 - se o resultado se mantém em execuções repetidas;
 - se o resultado permanece consistente com diferentes números de processos.
 
-Caso sejam utilizadas sementes independentes sem equivalência com a sequência original, a comparação deverá considerar a proximidade estatística da estimativa de π, deixando explícito que não existe igualdade exata com o baseline.
+Sementes independentes sem equivalência com a sequência original poderão ser usadas apenas em experimentos diagnósticos. Elas não serão aceitas na validação final, pois proximidade estatística não satisfaz o enunciado. A versão entregue deverá reproduzir exatamente os valores de `dentro` e `pi` do baseline para qualquer quantidade testada de processos.
 
 ## Protocolo de testes
 
