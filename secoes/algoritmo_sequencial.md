@@ -27,9 +27,10 @@ a variância cai.
    principal do resto do programa.
 4. **Laço principal**: repetido `n` vezes, gera `x` e `y`, testa
    `x*x + y*y <= 1.0` e incrementa `dentro` quando verdadeiro.
-5. **Marca de tempo final** (`t1 = agora()`), imediatamente após o
-   laço.
-6. **Cálculo final**: `pi = 4.0 * dentro / n`.
+5. **Cálculo final**: `pi = 4.0 * dentro / n`.
+6. **Marca de tempo final** (`t1 = agora()`), imediatamente após o
+   cálculo de π. Portanto, a janela `t0`–`t1` inclui o laço e esse
+   cálculo final de custo constante.
 7. **Saída**: imprime `n`, `pi`, `dentro` e o tempo do laço
    (`t1 - t0`) no formato `n=... pi=... dentro=... tempo=... s`.
 
@@ -65,9 +66,10 @@ incrementa `dentro`.
 Como a razão entre a área do quarto de círculo e a do quadrado
 unitário é π/4, `dentro / n` aproxima π/4, e multiplicar por 4
 fornece a estimativa: `pi = 4.0 * (double)dentro / (double)n`. Esse
-cálculo ocorre uma única vez, após o laço, com custo constante — e,
-notavelmente, **depois** da marca de tempo final `t1`, isto é, fora
-da janela medida internamente pelo programa.
+cálculo ocorre uma única vez, após o laço, com custo constante e antes
+da marca de tempo final `t1`; portanto, ele está incluído na janela
+medida internamente pelo programa, embora seu custo seja desprezível
+em relação ao laço.
 
 ## 6. Complexidade de tempo
 

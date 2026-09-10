@@ -43,12 +43,17 @@ for n in "${ENTRADAS[@]}"; do
 
     mediana_total=$(printf '%s\n' "${totais[@]}" | sort -n | sed -n '2p')
     mediana_laco=$(printf '%s\n'  "${lacos[@]}"  | sort -n | sed -n '2p')
-    mediana_outros=$(printf '%s\n' "${outros[@]}" | sort -n | sed -n '2p')
+    # Mantem a tabela agregada consistente: total = principal + outros.
+    mediana_outros=$(awk -v total="$mediana_total" -v laco="$mediana_laco" \
+        'BEGIN { printf "%.6f", total - laco }')
 
-    pct_laco=$(echo "scale=4; $mediana_laco / $mediana_total * 100" | bc)
-    pct_outros=$(echo "scale=4; $mediana_outros / $mediana_total * 100" | bc)
+    # Multiplica antes de dividir e evita a dependencia externa de bc.
+    pct_laco=$(awk -v laco="$mediana_laco" -v total="$mediana_total" \
+        'BEGIN { printf "%.4f", (laco * 100) / total }')
+    pct_outros=$(awk -v outros="$mediana_outros" -v total="$mediana_total" \
+        'BEGIN { printf "%.4f", (outros * 100) / total }')
 
-    echo "$n,laco_principal,$mediana_laco,$pct_laco" >> "$OUT"
+    echo "$n,trecho_principal,$mediana_laco,$pct_laco" >> "$OUT"
     echo "$n,outros_trechos,$mediana_outros,$pct_outros" >> "$OUT"
     echo "$n,total,$mediana_total,100" >> "$OUT"
 

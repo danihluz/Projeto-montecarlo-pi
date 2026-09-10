@@ -26,8 +26,10 @@ acrescentaria overhead de chamadas a `clock_gettime` a cada iteração
 (10.000.000, 50.000.000, 100.000.000), 1 execução de aquecimento
 (descartada) seguida de 3 execuções válidas, com o script
 `scripts/medir_perfilamento.sh`, que compila com `g++ -O2`, extrai os
-tempos de cada execução (linha `PERFIL,...` em stderr) e calcula a
-mediana de `tempo_total`, `tempo_laco` e `tempo_outros`.
+tempos de cada execução (linha `PERFIL,...` em stderr), calcula as
+medianas de `tempo_total` e `tempo_laco` e obtém o tempo representativo
+dos outros trechos pela diferença entre essas medianas. Isso mantém a
+tabela agregada internamente consistente.
 
 ## Verificação de overhead da instrumentação
 
@@ -55,26 +57,28 @@ válidas por `n`, após 1 execução de aquecimento descartada):
 
 | n | trecho | tempo (s) | percentual |
 |---|---|---|---|
-| 10.000.000 | laço principal | 0.037520 | 99,97% |
-| 10.000.000 | outros trechos | 0.000007 | 0,02% |
+| 10.000.000 | trecho principal | 0.037520 | 99,9787% |
+| 10.000.000 | outros trechos | 0.000008 | 0,0213% |
 | 10.000.000 | total | 0.037528 | 100% |
-| 50.000.000 | laço principal | 0.188754 | 99,99% |
-| 50.000.000 | outros trechos | 0.000007 | ~0% |
+| 50.000.000 | trecho principal | 0.188754 | 99,9952% |
+| 50.000.000 | outros trechos | 0.000009 | 0,0048% |
 | 50.000.000 | total | 0.188763 | 100% |
-| 100.000.000 | laço principal | 0.375477 | 99,99% |
-| 100.000.000 | outros trechos | 0.000007 | ~0% |
+| 100.000.000 | trecho principal | 0.375477 | 99,9979% |
+| 100.000.000 | outros trechos | 0.000008 | 0,0021% |
 | 100.000.000 | total | 0.375485 | 100% |
 
 ## Hotspot — evidência
 
-O laço principal concentra **entre 99,97% e 99,99%** do tempo total
+O trecho principal concentra **entre 99,9787% e 99,9979%** do tempo total
 de execução nos três tamanhos testados, confirmando experimentalmente
 a hipótese levantada na análise do algoritmo
 (`secoes/algoritmo_sequencial.md`): é o único trecho cujo custo cresce
 com `n` (inicialização e cálculo final têm custo O(1) e, na prática,
 consomem microssegundos, enquanto o laço consome de dezenas a
 centenas de milissegundos). O hotspot do programa é, portanto, **o
-laço principal** (geração de `(x,y)` + teste geométrico + contagem).
+trecho principal**, composto pelo laço (geração de `(x,y)` + teste
+geométrico + contagem) e pelo cálculo final de π, cujo custo constante
+é desprezível.
 
 ## Lei de Amdahl
 
