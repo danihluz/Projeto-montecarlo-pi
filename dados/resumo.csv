@@ -1,0 +1,4 @@
+versao,escala,n,workers,tempo_mediano_s,speedup_vs_seq,eficiencia_vs_seq,speedup_vs_1worker,eficiencia_vs_1worker,eficiencia_fraca
+sequencial,forte,10000000,1,0.038373,1.000000,1.000000,1.000000,1.000000,
+sequencial,forte,50000000,1,0.191866,1.000000,1.000000,1.000000,1.000000,
+sequencial,forte,100000000,1,0.379941,1.000000,1.000000,1.000000,1.000000,

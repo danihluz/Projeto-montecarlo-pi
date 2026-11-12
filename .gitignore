@@ -10,3 +10,5 @@ baseline/02_montecarlo_pi_perfilamento
 # Configurações locais do VS Code
 .vscode/
 scripts/amdahl
+
+scripts/analisar
