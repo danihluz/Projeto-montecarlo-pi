@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shlex
 import shutil
 import subprocess
 import urllib.request
@@ -50,6 +51,7 @@ def main():
         return match[2], match[3], match[4]
 
     try:
+        comando_mpi = ["mpirun"] + shlex.split(os.environ.get("MPIRUN_EXTRA", ""))
         cpus = len(os.sched_getaffinity(0))
         workers_coletor = [1, 2, 4, 6, 8, 12]
         sobrealocados = [p for p in workers_coletor if p > cpus]
@@ -64,7 +66,7 @@ def main():
         for cmd in (["uname", "-a"], ["cat", "/etc/os-release"], ["lscpu"],
                     ["free", "-h"], ["g++", "--version"], ["mpirun", "--version"]):
             maquina.append("$ " + " ".join(cmd) + "\n" + executar(cmd).stdout)
-        for key in ("HYDRA_LAUNCHER", "UCX_TLS", "OMP_NUM_THREADS"):
+        for key in ("HYDRA_LAUNCHER", "UCX_TLS", "OMP_NUM_THREADS", "MPIRUN_EXTRA"):
             maquina.append(f"{key}={os.environ.get(key, '(nao definida)')}")
         (RESULTADOS / "maquina.txt").write_text(
             re.sub(r"[ \t]+\n", "\n", "\n".join(maquina)), encoding="utf-8")
@@ -112,7 +114,7 @@ def main():
                     raise RuntimeError(f"baseline difere do gabarito para n={n}")
                 for p in workers:
                     pi_mpi, dentro_mpi, tempo = analisar_saida(
-                        executar(["mpirun", "-np", p, bin_mpi, n]), n)
+                        executar(comando_mpi + ["-np", p, bin_mpi, n]), n)
                     if (pi_seq, dentro_seq) != (pi_mpi, dentro_mpi):
                         raise RuntimeError(f"divergencia para n={n}, p={p}")
                     writer.writerow([n, p, pi_seq, dentro_seq, pi_mpi,
@@ -123,7 +125,7 @@ def main():
 
         # Confere tambem o argumento omitido (50 milhoes).
         esperado = analisar_saida(executar([seq]), 50000000)[:2]
-        padrao = analisar_saida(executar(["mpirun", "-np", 4, bin_mpi]), 50000000)
+        padrao = analisar_saida(executar(comando_mpi + ["-np", 4, bin_mpi]), 50000000)
         if padrao[:2] != esperado:
             raise RuntimeError("divergencia com argumento omitido")
 
@@ -131,14 +133,15 @@ def main():
         versao_mpi = executar(["mpirun", "--version"]).stdout
         rank = "uma linha exata em todas as comparacoes; impressao condicionada a rank 0 no codigo"
         if "HYDRA" in versao_mpi:
-            proc = executar(["mpirun", "-l", "-np", 4, bin_mpi, 17])
+            proc = executar(comando_mpi + ["-l", "-np", 4, bin_mpi, 17])
             if not proc.stdout.startswith("[0] ") or not PADRAO.fullmatch(proc.stdout[4:]):
                 raise RuntimeError("saida etiquetada nao veio apenas do rank 0")
             rank = proc.stdout.strip()
 
         for n in (0, -1):
-            proc = executar(["mpirun", "-np", 4, bin_mpi, n], falha_esperada=True)
-            if proc.stdout or proc.stderr != "ERRO: n deve ser positivo.\n":
+            proc = executar(comando_mpi + ["-np", 4, bin_mpi, n], falha_esperada=True)
+            # OpenMPI tambem relata o retorno nao zero dos processos no stderr.
+            if proc.stdout or proc.stderr.splitlines().count("ERRO: n deve ser positivo.") != 1:
                 raise RuntimeError("entrada invalida nao foi rejeitada como esperado")
 
         # Mantem os scripts do Gui byte a byte, inclusive WORKERS=(1 2 4 6 8 12).
@@ -152,7 +155,7 @@ def main():
         shutil.copy2(bin_mpi, copia / "mpi/02_montecarlo_pi_mpi")
         # O coletor permite selecionar as versoes por ambiente.
         coleta_env = dict(os.environ, VERSOES="sequencial mpi",
-                          OUT="dados/medicoes.csv", MPIRUN_EXTRA="")
+                          OUT="dados/medicoes.csv")
         print("Executando coletor intacto do Gui (forte e fraca)... " + ressalva, flush=True)
         executar(["bash", "scripts/coletar.sh", "todas"], cwd=copia,
                  timeout=600, env=coleta_env)

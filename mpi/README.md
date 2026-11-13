@@ -150,6 +150,17 @@ ler o commit fixado do PR e MPI no `PATH`. Ele:
 - Salva as comparações, medições, tabelas, caracterização e logs em
   `mpi/resultados/`. Uma divergência ou falha causa retorno diferente de zero.
 
+As opções de `MPIRUN_EXTRA` são aplicadas às chamadas MPI dos testes e
+repassadas ao coletor intacto do Gui. Com OpenMPI, se o protocolo exceder os
+slots disponíveis e você quiser testar explicitamente essa sobrealocação:
+
+```bash
+MPIRUN_EXTRA="--oversubscribe" python3 mpi/testar.py
+```
+
+Nos testes de entradas inválidas, a mensagem da raiz deve aparecer uma vez;
+diagnósticos adicionais do launcher sobre o retorno não zero são permitidos.
+
 O coletor original fixa `p=1,2,4,6,8,12`. No ambiente usado, há oito CPUs
 lógicas disponíveis: os testes com 12 processos representam sobrealocação e
 servem para verificar compatibilidade nessa condição. Seus tempos são reais,
@@ -184,6 +195,9 @@ Ela ajusta somente o ambiente do shell atual (`PATH`, `LD_LIBRARY_PATH` e o
 launcher local `HYDRA_LAUNCHER=fork`). Os adaptadores locais de `mpic++` e
 `mpirun` apontam para os arquivos extraídos. Essa pasta é ignorada pelo Git.
 Em uma máquina com MPI instalado normalmente, a ativação não é necessária.
+`mpi/.ambiente/` não é portátil e não será enviada ao GitHub; portanto,
+`ativar.sh` não estará presente em um clone novo. A compilação normal usa
+somente o MPI instalado nessa máquina, sem depender dessa pasta.
 
 ## Integração com o trabalho do Gui
 
