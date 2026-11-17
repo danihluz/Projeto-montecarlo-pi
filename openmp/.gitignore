@@ -1,0 +1,4 @@
+.build/
+02_montecarlo_pi_omp
+*.exe
+__pycache__/

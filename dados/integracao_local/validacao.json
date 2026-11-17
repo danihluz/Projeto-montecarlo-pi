@@ -1,0 +1,15 @@
+{
+  "status": "OK",
+  "medicoes": 171,
+  "configuracoes": 57,
+  "repeticoes": 3,
+  "corretude_openmp": 312,
+  "corretude_mpi": 108,
+  "comparacoes_adicionais": 60,
+  "regressoes_coletor": 7,
+  "regressoes_verificador": 2,
+  "medicoes_teste_mpi": 99,
+  "medicoes_investigacao": 45,
+  "baseline_sha256": "1eda8ea76c5cba608216edf6d8b5d1f02198558013ac291468d9b762c17fde7d",
+  "medianas_speedups_eficiencias": "conferidos independentemente; tolerancia do arredondamento de 6 casas"
+}

@@ -1,0 +1,20 @@
+{
+  "status": "OK",
+  "jump_ahead": "OK: 2335 estados, 5 sementes, deslocamentos ate 300000000; 119 particoes; 155120 coordenadas identicas ao baseline.",
+  "comparacoes_baseline_mpi": 108,
+  "medicoes_coletor_gui": 99,
+  "rank_0": "[0] n=17  pi=3.058824  dentro=13  tempo=0.001685 s",
+  "argumento_omitido": "OK",
+  "entradas_invalidas": "0 e -1 rejeitadas",
+  "cpus_disponiveis": 8,
+  "workers_coletor": [
+    1,
+    2,
+    4,
+    6,
+    8,
+    12
+  ],
+  "sobrealocacao": "12 processos em 8 CPUs; nao demonstra capacidade fisica adicional",
+  "pr14_commit": "e0917954201eeb854f094f36b9f94f41a3dd81a1"
+}

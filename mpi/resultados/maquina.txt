@@ -1,0 +1,96 @@
+Data: 2026-11-12T22:55:15.145187-03:00
+CPUs logicas disponiveis: 8
+PR #14 inspecionado: e0917954201eeb854f094f36b9f94f41a3dd81a1
+MPI extraido localmente; nenhum pacote instalado no sistema.
+12 processos excedem as 8 CPUs disponiveis neste registro; essa configuracao verifica compatibilidade sob sobrealocacao.
+$ uname -a
+Linux Danielly-PC 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 GNU/Linux
+
+$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 26.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+VERSION="26.04.1 LTS (Resolute Raccoon)"
+VERSION_CODENAME=resolute
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=resolute
+LOGO=ubuntu-logo
+
+$ lscpu
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           39 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  8
+On-line CPU(s) list:                     0-7
+Vendor ID:                               GenuineIntel
+Model name:                              13th Gen Intel(R) Core(TM) i3-1315U
+CPU family:                              6
+Model:                                   186
+Thread(s) per core:                      2
+Core(s) per socket:                      4
+Socket(s):                               1
+Stepping:                                3
+BogoMIPS:                                4992.00
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni vnmi umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize ibt flush_l1d arch_capabilities
+Virtualization:                          VT-x
+Hypervisor vendor:                       Microsoft
+Virtualization type:                     full
+L1d cache:                               192 KiB (4 instances)
+L1i cache:                               128 KiB (4 instances)
+L2 cache:                                5 MiB (4 instances)
+L3 cache:                                10 MiB (1 instance)
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0-7
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Vulnerable: No microcode
+Vulnerability Retbleed:                  Mitigation; Enhanced IBRS
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+
+$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           3.7Gi       521Mi       2.5Gi       3.5Mi       717Mi       3.2Gi
+Swap:          1.0Gi          0B       1.0Gi
+
+$ g++ --version
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+$ mpirun --version
+HYDRA build details:
+    Version:                                 4.3.2
+    Release Date:                            Mon Oct  6 11:14:20 AM CDT 2025
+    CC:                              gcc -Wdate-time -D_FORTIFY_SOURCE=3 -g -O2 -Werror=implicit-function-declaration -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer -flto=auto -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection -Wformat -Werror=format-security -fcf-protection -fdebug-prefix-map=/build/mpich-f8z5Zh/mpich-4.3.2=/usr/src/mpich-4.3.2-2 -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -Wl,-z,relro -Wl,-z,now
+    Configure options:                       '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=${prefix}/include' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-option-checking' '--disable-silent-rules' '--libdir=${prefix}/lib/x86_64-linux-gnu' '--runstatedir=/run' '--disable-maintainer-mode' '--disable-dependency-tracking' '--with-hwloc-prefix=/usr' '--with-device=ch4:ucx' 'FFLAGS=-O2 -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer -flto=auto -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection -fcf-protection -fdebug-prefix-map=/build/mpich-f8z5Zh/mpich-4.3.2=/usr/src/mpich-4.3.2-2 -fallow-invalid-boz -fallow-argument-mismatch' 'build_alias=x86_64-linux-gnu' 'CFLAGS=-g -O2 -Werror=implicit-function-declaration -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer -flto=auto -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection -Wformat -Werror=format-security -fcf-protection -fdebug-prefix-map=/build/mpich-f8z5Zh/mpich-4.3.2=/usr/src/mpich-4.3.2-2' 'LDFLAGS=-Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -Wl,-z,relro -Wl,-z,now' 'CPPFLAGS=-Wdate-time -D_FORTIFY_SOURCE=3'
+    Process Manager:                         pmi
+    Launchers available:                     ssh rsh fork slurm ll lsf sge manual persist
+    Topology libraries available:            hwloc
+    Resource management kernels available:   user slurm ll lsf sge pbs cobalt
+    Demux engines available:                 poll select
+
+HYDRA_LAUNCHER=fork
+UCX_TLS=(nao definida)
+OMP_NUM_THREADS=(nao definida)

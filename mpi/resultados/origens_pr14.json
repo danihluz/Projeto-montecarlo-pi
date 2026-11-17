@@ -1,0 +1,18 @@
+{
+  "scripts/coletar.sh": {
+    "url": "https://raw.githubusercontent.com/danihluz/Projeto-montecarlo-pi/e0917954201eeb854f094f36b9f94f41a3dd81a1/scripts/coletar.sh",
+    "sha256": "c45505b2fd147759d23c261879ae799fe0c29c07b66662ef75e3d45e5c437f4f"
+  },
+  "scripts/analisar.cpp": {
+    "url": "https://raw.githubusercontent.com/danihluz/Projeto-montecarlo-pi/e0917954201eeb854f094f36b9f94f41a3dd81a1/scripts/analisar.cpp",
+    "sha256": "360a4160405c31948936d94497fe6e9052be1d92948d43e2ad7c1a9ad2d3ad04"
+  },
+  "dados/gabarito.csv": {
+    "url": "https://raw.githubusercontent.com/danihluz/Projeto-montecarlo-pi/e0917954201eeb854f094f36b9f94f41a3dd81a1/dados/gabarito.csv",
+    "sha256": "d974ddd1bfd663192505578542a536c925e00338a4ed15ae5e389be4a0bb34b4"
+  },
+  "secoes/protocolo_medicao.md": {
+    "url": "https://raw.githubusercontent.com/danihluz/Projeto-montecarlo-pi/e0917954201eeb854f094f36b9f94f41a3dd81a1/secoes/protocolo_medicao.md",
+    "sha256": "0cee321d1b4d034312bdeb3ab5f2a09c4caeacdcee264127773841dd9f9d8bc6"
+  }
+}
