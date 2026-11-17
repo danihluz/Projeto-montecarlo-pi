@@ -45,7 +45,7 @@ parse() {
 validar() {  # $1=n $2=pi $3=dentro
     local gp gd
     gp="$(awk -F',' -v n="$1" '$1==n {print $2}' "$GABARITO")"
-    gd="$(awk -F',' -v n="$1" '$1==n {print $3}' "$GABARITO")"
+    gd="$(awk -F',' -v n="$1" '$1==n {sub(/\r$/, "", $3); print $3}' "$GABARITO")"
     [ -n "$gd" ] || { echo "ERRO: n=$1 sem gabarito em $GABARITO" >&2; exit 1; }
     if [ "$2" = "$gp" ] && [ "$3" = "$gd" ]; then echo OK; else echo DIVERGENTE; fi
 }
@@ -64,7 +64,12 @@ rodar() {  # $1=versao $2=escala $3=n $4=workers
         linha="$(executar "${cmd[@]}")"
         parse "$linha"
         status="$(validar "$n" "$P_PI" "$P_DENTRO")"
+        [ "$P_N" = "$n" ] || status=DIVERGENTE
         echo "$versao,$escala,$n,$p,$rep,$P_TEMPO,$P_PI,$P_DENTRO,$status" >> "$OUT"
+        if [ "$status" != OK ]; then
+            echo "ERRO: resultado divergente: solicitado n=$n; $linha" >&2
+            return 1
+        fi
     done
 }
 

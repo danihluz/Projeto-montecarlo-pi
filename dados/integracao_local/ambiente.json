@@ -1,0 +1,120 @@
+{
+  "data": "2026-11-16T20:53:57.532201-03:00",
+  "sistema": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "cpus_disponiveis": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "cpu_fixa": 0,
+  "laboratorio": false,
+  "compilacao": {
+    "sequencial": "g++ -O2",
+    "openmp": "g++ -O2 -fopenmp",
+    "mpi": "mpic++ -O2"
+  },
+  "coleta": {
+    "aquecimentos": 1,
+    "repeticoes": 3,
+    "forte": [
+      10000000,
+      50000000,
+      100000000
+    ],
+    "fraca_pontos_por_worker": 12500000,
+    "workers": [
+      1,
+      2,
+      4,
+      6,
+      8,
+      12
+    ],
+    "sobrealocados": [
+      12
+    ],
+    "MPIRUN_EXTRA": "--oversubscribe --bind-to none",
+    "OMP_DYNAMIC": "FALSE",
+    "OMP_PROC_BIND": "FALSE"
+  },
+  "mpi_disponibilizacao": "OpenMPI extraido de pacotes Ubuntu no ambiente isolado de testes; nao e dependencia do repositorio",
+  "hardware": {
+    "comando": [
+      "lscpu"
+    ],
+    "retorno": 0,
+    "stdout": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           39 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  8\nOn-line CPU(s) list:                     0-7\nVendor ID:                               GenuineIntel\nModel name:                              13th Gen Intel(R) Core(TM) i3-1315U\nCPU family:                              6\nModel:                                   186\nThread(s) per core:                      2\nCore(s) per socket:                      4\nSocket(s):                               1\nStepping:                                3\nBogoMIPS:                                4992.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni vnmi umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize ibt flush_l1d arch_capabilities\nVirtualization:                          VT-x\nHypervisor vendor:                       Microsoft\nVirtualization type:                     full\nL1d cache:                               192 KiB (4 instances)\nL1i cache:                               128 KiB (4 instances)\nL2 cache:                                5 MiB (4 instances)\nL3 cache:                                10 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-7\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Vulnerable: No microcode\nVulnerability Retbleed:                  Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+    "stderr": ""
+  },
+  "compilador": {
+    "comando": [
+      "g++",
+      "--version"
+    ],
+    "retorno": 0,
+    "stdout": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "stderr": ""
+  },
+  "mpi": {
+    "comando": [
+      "mpirun",
+      "--version"
+    ],
+    "retorno": 0,
+    "stdout": "mpirun.openmpi (Open MPI) 5.0.10\n\nReport bugs to https://www.open-mpi.org/community/help/\n\n",
+    "stderr": ""
+  },
+  "investigacao_metodologia": "Por n e configuracao: um aquecimento descartado e tres execucoes; tempo interno e resultado conferidos com o gabarito.",
+  "fontes_sha256": {
+    "Makefile": "95a353e48393c9d4ff082d74c462f9f3cbcca15b3cd35ef497fce5532ae16688",
+    "scripts/coletar.sh": "131fe7905acdfacf51fed318a5e04baddf31dc0a9730c2a17e14bc5e34e92efd",
+    "baseline/02_montecarlo_pi.cpp": "1eda8ea76c5cba608216edf6d8b5d1f02198558013ac291468d9b762c17fde7d",
+    "openmp/02_montecarlo_pi_openmp.cpp": "eff3f78770c267989386c7176fd430b1448cf8361163125685dc2f47b6ead641",
+    "mpi/02_montecarlo_pi_mpi.cpp": "901922171aef83388cf46c18930e8218916156a73bd512842d9b3df19bd2f6d9"
+  },
+  "afinidade_sequencial": {
+    "comando": [
+      "python3",
+      "-c",
+      "import os; print(sorted(os.sched_getaffinity(0)))"
+    ],
+    "retorno": 0,
+    "stdout": "[0, 1, 2, 3, 4, 5, 6, 7]\n",
+    "stderr": ""
+  },
+  "afinidade_mpi_padrao": {
+    "comando": [
+      "mpirun",
+      "--report-bindings",
+      "-np",
+      "1",
+      "python3",
+      "-c",
+      "import os; print(sorted(os.sched_getaffinity(0)))"
+    ],
+    "retorno": 0,
+    "stdout": "[0, 1]\n",
+    "stderr": "[Danielly-PC:13964] Rank 0 bound to package[0][core:L0]\n"
+  },
+  "afinidade_mpi_sem_binding": {
+    "comando": [
+      "mpirun",
+      "--bind-to",
+      "none",
+      "-np",
+      "1",
+      "python3",
+      "-c",
+      "import os; print(sorted(os.sched_getaffinity(0)))"
+    ],
+    "retorno": 0,
+    "stdout": "[0, 1, 2, 3, 4, 5, 6, 7]\n",
+    "stderr": ""
+  },
+  "investigacao_diagnosticos": []
+}

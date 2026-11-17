@@ -50,8 +50,10 @@ interno `s`.
 Um detalhe relevante indicado no próprio comentário do código: esse
 xorshift é de estado único e sequencial — em uma versão paralela
 (OpenMP/MPI, prevista para os próximos marcos), cada thread/processo
-precisará de seu próprio gerador com semente independente, já que o
-estado `s` não pode ser compartilhado sem sincronização.
+precisará de estado privado, já que o estado `s` não pode ser compartilhado
+sem sincronização. As implementações usam jump-ahead para iniciar cada bloco
+na mesma sequência do baseline; sementes arbitrariamente diferentes mudariam
+o gabarito e não são usadas.
 
 ## 4. Teste `x*x + y*y <= 1.0`
 

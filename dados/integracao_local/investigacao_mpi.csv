@@ -1,0 +1,46 @@
+configuracao,n,repeticao,tempo_s,pi_estimado,dentro,status_validacao,comando
+sequencial_livre,10000000,1,0.033225,3.141412,7853529,OK,baseline/02_montecarlo_pi 10000000
+sequencial_livre,10000000,2,0.033945,3.141412,7853529,OK,baseline/02_montecarlo_pi 10000000
+sequencial_livre,10000000,3,0.033286,3.141412,7853529,OK,baseline/02_montecarlo_pi 10000000
+mpi_sem_binding,10000000,1,0.037999,3.141412,7853529,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 10000000
+mpi_sem_binding,10000000,2,0.036199,3.141412,7853529,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 10000000
+mpi_sem_binding,10000000,3,0.036703,3.141412,7853529,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 10000000
+mpi_binding_padrao,10000000,1,0.035658,3.141412,7853529,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 10000000
+mpi_binding_padrao,10000000,2,0.033166,3.141412,7853529,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 10000000
+mpi_binding_padrao,10000000,3,0.033810,3.141412,7853529,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 10000000
+sequencial_cpu_fixa,10000000,1,0.033013,3.141412,7853529,OK,taskset -c 0 baseline/02_montecarlo_pi 10000000
+sequencial_cpu_fixa,10000000,2,0.034047,3.141412,7853529,OK,taskset -c 0 baseline/02_montecarlo_pi 10000000
+sequencial_cpu_fixa,10000000,3,0.034088,3.141412,7853529,OK,taskset -c 0 baseline/02_montecarlo_pi 10000000
+mpi_cpu_fixa,10000000,1,0.035733,3.141412,7853529,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 10000000
+mpi_cpu_fixa,10000000,2,0.033325,3.141412,7853529,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 10000000
+mpi_cpu_fixa,10000000,3,0.035098,3.141412,7853529,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 10000000
+sequencial_livre,50000000,1,0.167316,3.141429,39267859,OK,baseline/02_montecarlo_pi 50000000
+sequencial_livre,50000000,2,0.165240,3.141429,39267859,OK,baseline/02_montecarlo_pi 50000000
+sequencial_livre,50000000,3,0.168931,3.141429,39267859,OK,baseline/02_montecarlo_pi 50000000
+mpi_sem_binding,50000000,1,0.177966,3.141429,39267859,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 50000000
+mpi_sem_binding,50000000,2,0.166287,3.141429,39267859,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 50000000
+mpi_sem_binding,50000000,3,0.173475,3.141429,39267859,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 50000000
+mpi_binding_padrao,50000000,1,0.167814,3.141429,39267859,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 50000000
+mpi_binding_padrao,50000000,2,0.171962,3.141429,39267859,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 50000000
+mpi_binding_padrao,50000000,3,0.167353,3.141429,39267859,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 50000000
+sequencial_cpu_fixa,50000000,1,0.169646,3.141429,39267859,OK,taskset -c 0 baseline/02_montecarlo_pi 50000000
+sequencial_cpu_fixa,50000000,2,0.162612,3.141429,39267859,OK,taskset -c 0 baseline/02_montecarlo_pi 50000000
+sequencial_cpu_fixa,50000000,3,0.169106,3.141429,39267859,OK,taskset -c 0 baseline/02_montecarlo_pi 50000000
+mpi_cpu_fixa,50000000,1,0.167510,3.141429,39267859,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 50000000
+mpi_cpu_fixa,50000000,2,0.167987,3.141429,39267859,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 50000000
+mpi_cpu_fixa,50000000,3,0.167077,3.141429,39267859,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 50000000
+sequencial_livre,100000000,1,0.326837,3.141499,78537472,OK,baseline/02_montecarlo_pi 100000000
+sequencial_livre,100000000,2,0.334133,3.141499,78537472,OK,baseline/02_montecarlo_pi 100000000
+sequencial_livre,100000000,3,0.336450,3.141499,78537472,OK,baseline/02_montecarlo_pi 100000000
+mpi_sem_binding,100000000,1,0.336703,3.141499,78537472,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 100000000
+mpi_sem_binding,100000000,2,0.330785,3.141499,78537472,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 100000000
+mpi_sem_binding,100000000,3,0.328788,3.141499,78537472,OK,mpirun --bind-to none -np 1 mpi/02_montecarlo_pi_mpi 100000000
+mpi_binding_padrao,100000000,1,0.329643,3.141499,78537472,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 100000000
+mpi_binding_padrao,100000000,2,0.327912,3.141499,78537472,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 100000000
+mpi_binding_padrao,100000000,3,0.336670,3.141499,78537472,OK,mpirun -np 1 mpi/02_montecarlo_pi_mpi 100000000
+sequencial_cpu_fixa,100000000,1,0.336313,3.141499,78537472,OK,taskset -c 0 baseline/02_montecarlo_pi 100000000
+sequencial_cpu_fixa,100000000,2,0.332231,3.141499,78537472,OK,taskset -c 0 baseline/02_montecarlo_pi 100000000
+sequencial_cpu_fixa,100000000,3,0.332795,3.141499,78537472,OK,taskset -c 0 baseline/02_montecarlo_pi 100000000
+mpi_cpu_fixa,100000000,1,0.339686,3.141499,78537472,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 100000000
+mpi_cpu_fixa,100000000,2,0.327221,3.141499,78537472,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 100000000
+mpi_cpu_fixa,100000000,3,0.338360,3.141499,78537472,OK,mpirun --bind-to none -np 1 taskset -c 0 mpi/02_montecarlo_pi_mpi 100000000

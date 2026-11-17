@@ -31,8 +31,8 @@ Somente o rank 0 imprime o resultado, neste formato exato:
 n=<n>  pi=<seis casas>  dentro=<inteiro>  tempo=<seis casas> s
 ```
 
-O executável tem o caminho esperado pelo coletor do PR #14. Não foi necessário
-adicionar um alvo ao Makefile compartilhado.
+O executável tem o caminho esperado pelo coletor. O Makefile da raiz possui
+agora o alvo `mpi`; `make -C mpi` mantém a compilação independente desta frente.
 
 ## Divisão e reunião do trabalho
 
@@ -201,8 +201,10 @@ somente o MPI instalado nessa máquina, sem depender dessa pasta.
 
 ## Integração com o trabalho do Gui
 
-A branch parte da `main` anterior ao PR #14. Não houve merge, push ou abertura
-de PR. Todos os novos arquivos versionados estão em `mpi/`.
+A implementação original foi entregue no PR #15, com alterações restritas a
+`mpi/`. O PR #14 incorporou seus commits e os do OpenMP. As correções do coletor,
+Makefile e documentação geral ficam na branch separada `integracao-marco2`,
+preservando os fontes e o histórico das implementações.
 
 O PR #14 ainda precisa passar pela revisão e integração do grupo. O coletor
 espera que o executável MPI já esteja compilado; `make -C mpi` satisfaz isso.
@@ -221,8 +223,8 @@ evitam o problema de CRLF observado no Windows. A configuração local de
 atributos em `mpi/` não altera os arquivos compartilhados.
 
 Os speedups comparam tempos medidos nesta mesma máquina. Os resultados do
-Gui obtidos em outra máquina não são usados como denominador. Ainda faltam
-as medições finais no laboratório, com registro de seu ambiente, e a coleta
-conjunta com a implementação OpenMP do Heitor. O PDF original do enunciado
-não estava disponível; a implementação segue o baseline, as instruções da
-Danielly e o contrato do PR inspecionado.
+Gui obtidos em outra máquina não são usados como denominador. A coleta conjunta
+local da integração está em `dados/integracao_local/`; os registros desta pasta
+MPI continuam representando a coleta original. Ainda faltam as medições finais
+no laboratório e a demonstração ao vivo. Na entrega inicial, o PDF do enunciado
+não estava disponível; ele foi posteriormente conferido na auditoria da integração.
